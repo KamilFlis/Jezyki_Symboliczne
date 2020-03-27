@@ -20,7 +20,6 @@ def exercise_2():
         for i in range(n - 1):
             x = two_args(x[0], x[1])
             print(*x, sep=" ", end=" ")
-            #print(*two_args(x, y), sep=" ", end=" ")
         return x[1]
 
     n = 7
@@ -94,6 +93,9 @@ def exercise_6():
 
 
 def exercise_7():
+    def print_board(board):
+        for i in board:
+            print(i)
 
     board = [[False for col in range(10)] for row in range(10)]
     for i in range(21):
@@ -102,18 +104,27 @@ def exercise_7():
     used_coords = set()
     true_counter = 0
 
+    board_show = [["_" for col in range(10)] for row in range(10)]
+
     print("Gra w statki!")
+    print("Traf 20 statkow, zeby wygrac")
+    print("X - trafiony")
+    print("Y - pudlo")
+
     while true_counter != 20:
-        xy = input("Podaj x, y: ")
+        print_board(board_show)
+        xy = input("Podaj x, y [-10, 10): ")
         xy = xy.split(" ")
         coords = (int(xy[0]), int(xy[1]))
-        if coords[0] and coords[1] in range(0, 10):
+        if -10 <= coords[0] < 10 and -10 <= coords[1] < 10:
             if coords not in used_coords:
                 used_coords.add(coords)
                 if board[coords[0]][coords[1]] is True:
                     print("Trafiony!")
+                    board_show[coords[0]][coords[1]] = "X"
                     true_counter += 1
                 else:
+                    board_show[coords[0]][coords[1]] = "Y"
                     print("Pudlo!")
             else:
                 print("Juz tam strzelano")
